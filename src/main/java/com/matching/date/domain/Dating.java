@@ -1,41 +1,44 @@
 package com.matching.date.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
 
-
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "dating")
-@NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Dating {
 
-
     @Id
-    @GeneratedValue
-    @Column(name = "dating_id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name="member_id")
-    private Member fromMember; // fk
+    @JoinColumn(name = "from_member_id", nullable = false,
+            foreignKey = @ForeignKey(name="FK_FROM_MEMBER_TB_DATING"))
+    private Member fromMember;
 
     @ManyToOne
-    @JoinColumn(name="member_id")
-    private Member toMember; // fk
+    @JoinColumn(name = "to_member_id", nullable = false,
+            foreignKey = @ForeignKey(name="FK_TO_MEMBER_TB_DATING"))
+    private Member toMember;
 
-    @Column(name = "create_at")
-    private Date createAt;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
 
-    @Column(name = "accept")
-    private int accept; // 0agree 1deny
-
-
+    private Boolean agree;
 }

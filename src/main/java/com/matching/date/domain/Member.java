@@ -1,47 +1,50 @@
 package com.matching.date.domain;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 @Entity
-@Table(name = "member")
-@NoArgsConstructor
-public class Member
-{
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Member {
+
     @Id
-    @GeneratedValue
-    @Column(name = "member_id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "member_name")
-    private String name;
+    @Column(nullable = false)
+    private String nickname;
 
-    @Column(name = "member_gender")
-    private int gender; // 0male 1female
-
-    @Column(name = "member_age") // 0male 1female
+    @Column(nullable = false)
     private int age;
 
-    @Column(name = "member_height")
+    @Column(nullable = false)
     private int height;
 
-    @Column(name = "member_job")
     private String job;
 
-    @Column(name = "member_address")
-    private String address;
+    private String location;
 
-    @Column(name = "image")
+    @Column(name = "gender", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     private String image;
 
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<Ideal> ideals;
+    private List<Idel> idels;
 
     @OneToMany(mappedBy = "fromMember", cascade = CascadeType.REMOVE)
     private List<Dating> responseDate;
@@ -49,4 +52,8 @@ public class Member
     @OneToMany(mappedBy = "toMember", cascade = CascadeType.REMOVE)
     private List<Dating> requestDate;
 
+    public enum Gender {
+        MAN,
+        WOMAN
+    }
 }
