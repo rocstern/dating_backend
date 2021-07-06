@@ -1,6 +1,6 @@
 package com.matching.date.domain;
 
-public class Idle {
+public class Ideal {
     private int id;
     private int type; //0height 1age
     private int rangeStart;
@@ -38,7 +38,7 @@ public class Idle {
         this.rangeEnd = rangeEnd;
     }
 
-    public Idle(int id, int type, int rangeStart, int rangeEnd) {
+    public Ideal(int id, int type, int rangeStart, int rangeEnd) {
         this.id = id;
         this.type = type;
         this.rangeStart = rangeStart;

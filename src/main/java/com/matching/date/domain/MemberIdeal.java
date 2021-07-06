@@ -1,9 +1,9 @@
 package com.matching.date.domain;
 
-public class MemberIdle {
+public class MemberIdeal {
     private int id;
     private int memberId; // FK
-    private int idleId; // FK
+    private int idealId; // FK
 
     public int getId() {
         return id;
@@ -22,16 +22,16 @@ public class MemberIdle {
     }
 
     public int getIdleId() {
-        return idleId;
+        return idealId;
     }
 
     public void setIdleId(int idleId) {
-        this.idleId = idleId;
+        this.idealId = idleId;
     }
 
-    public MemberIdle(int id, int memberId, int idleId) {
+    public MemberIdeal(int id, int memberId, int idleId) {
         this.id = id;
         this.memberId = memberId;
-        this.idleId = idleId;
+        this.idealId = idleId;
     }
 }
