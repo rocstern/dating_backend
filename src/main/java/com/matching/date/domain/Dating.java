@@ -1,60 +1,41 @@
 package com.matching.date.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.Date;
 
+
+@AllArgsConstructor
+@Builder
+@Data
+@Entity
+@Table(name = "dating")
+@NoArgsConstructor
 public class Dating {
 
+
+    @Id
+    @GeneratedValue
+    @Column(name = "dating_id")
     private int id;
-    private int formMemberId; // fk
-    private int toMemberId; // fk
+
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member fromMember; // fk
+
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member toMember; // fk
+
+    @Column(name = "create_at")
     private Date createAt;
+
+    @Column(name = "accept")
     private int accept; // 0agree 1deny
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getFormMemberId() {
-        return formMemberId;
-    }
-
-    public void setFormMemberId(int formMemberId) {
-        this.formMemberId = formMemberId;
-    }
-
-    public int getToMemberId() {
-        return toMemberId;
-    }
-
-    public void setToMemberId(int toMemberId) {
-        this.toMemberId = toMemberId;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public int getAccept() {
-        return accept;
-    }
-
-    public void setAccept(int accept) {
-        this.accept = accept;
-    }
-
-    public Dating(int id, int formMemberId, int toMemberId, Date createAt, int accept) {
-        this.id = id;
-        this.formMemberId = formMemberId;
-        this.toMemberId = toMemberId;
-        this.createAt = createAt;
-        this.accept = accept;
-    }
 }

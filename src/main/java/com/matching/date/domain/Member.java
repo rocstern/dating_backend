@@ -1,97 +1,52 @@
 package com.matching.date.domain;
 
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
+
+@AllArgsConstructor
+@Builder
+@Data
+@Entity
+@Table(name = "member")
+@NoArgsConstructor
 public class Member
 {
+    @Id
+    @GeneratedValue
+    @Column(name = "member_id")
     private int id;
+
+    @Column(name = "member_name")
     private String name;
+
+    @Column(name = "member_gender")
     private int gender; // 0male 1female
+
+    @Column(name = "member_age") // 0male 1female
     private int age;
+
+    @Column(name = "member_height")
     private int height;
+
+    @Column(name = "member_job")
     private String job;
+
+    @Column(name = "member_address")
     private String address;
+
+    @Column(name = "image")
     private String image;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Ideal> ideals;
 
-    public String getName() {
-        return name;
-    }
+    @OneToMany(mappedBy = "fromMember", cascade = CascadeType.REMOVE)
+    private List<Dating> responseDate;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "toMember", cascade = CascadeType.REMOVE)
+    private List<Dating> requestDate;
 
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-
-    public Member(int id, String name, int gender, int age, int height) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.age = age;
-        this.height = height;
-    }
-
-    public Member(int id, String name, int gender, int age, int height, String job, String address, String image) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.age = age;
-        this.height = height;
-        this.job = job;
-        this.address = address;
-        this.image = image;
-    }
 }
